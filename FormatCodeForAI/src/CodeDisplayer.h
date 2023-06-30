@@ -14,7 +14,6 @@ class CodeDisplayer {
                 const std::vector<std::string>& ignoredFiles, std::ostream& os)
       : mFolderPath(folderPath), mFileExtensions(fileExtensions.begin(), fileExtensions.end()), mIgnoredFiles(ignoredFiles.begin(), ignoredFiles.end()), mOutputStream(os) {}
   void createMessage() const;
-  void display(std::string) const;
 
  private:
   std::set<std::string> mFileExtensions;
@@ -23,5 +22,5 @@ class CodeDisplayer {
   std::ostream& mOutputStream;
 
   bool isValidFile(const std::filesystem::directory_entry&) const;
-
+  void display(std::string) const;
 };
