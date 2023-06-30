@@ -129,11 +129,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\CodeDisplayer.cpp" />
+    <ClCompile Include="src\FileWriter.cpp" />
+    <ClCompile Include="src\FileReader.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\CodeDisplayer.h" />
+    <ClInclude Include="src\FileWriter.h" />
+    <ClInclude Include="src\FileReader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

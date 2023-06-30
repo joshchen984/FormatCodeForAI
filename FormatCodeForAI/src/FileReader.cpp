@@ -1,32 +1,27 @@
-#include "CodeDisplayer.h"
+#include "FileReader.h"
 
 #include <filesystem>
-#include <fstream>
+#include <vector>
 
 namespace fs = std::filesystem;
 
-void CodeDisplayer::createMessage() const {
+std::vector<std::string> FileReader::findFiles() {
+  std::vector<std::string> filePaths;
+
   for (const auto& entry : fs::directory_iterator(mFolderPath)) {
     if (entry.is_regular_file()) {
       if (isValidFile(entry)) {
-        // format file
+        filePaths.push_back(entry.path().string());    
       }
     } else {
       // entry is directory or special nonreadable file
     }
   }
+  return filePaths;
 }
 
-void CodeDisplayer::display(std::string filePath) const {
-  if (fs::exists(filePath) && fs::is_regular_file(filePath)) {
-    std::ifstream file(filePath);
-    if (file.is_open()) {
-      //
-    }
-  }
-}
 
-bool CodeDisplayer::isValidFile(const fs::directory_entry& file) const {
+bool FileReader::isValidFile(const fs::directory_entry& file) const {
   if (mFileExtensions.find(file.path().extension().string()) !=
           mFileExtensions.end() &&
       mIgnoredFiles.find(file.path().filename().string()) ==
