@@ -8,17 +8,19 @@
 namespace fs = std::filesystem;
 
 void FileWriter::writeFile(std::string filePath) const {
-  if (fs::exists(filePath) && fs::is_regular_file(filePath)) {
-    std::ifstream file(filePath);
-    if (file.is_open()) {
-      mOutputStream << "```\n";
+  fs::directory_entry file(filePath);
+
+  if (file.is_regular_file()) {
+    std::ifstream fileStream(filePath);
+    if (fileStream.is_open()) {
+      mOutputStream << "\n" << file.path().filename().string() << ":\n```\n";
       std::string line;
-      while (std::getline(file, line)) {
+      while (std::getline(fileStream, line)) {
         mOutputStream << line << "\n";
       }
       mOutputStream << "```\n";
 
-      file.close();
+      fileStream.close();
     }
   }
 }
