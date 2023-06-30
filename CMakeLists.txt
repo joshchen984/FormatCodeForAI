@@ -13,3 +13,4 @@ project ("FormatCodeForAI")
 
 # Include sub-projects.
 add_subdirectory ("FormatCodeForAI")
+add_subdirectory ("externals/cxxopts")
