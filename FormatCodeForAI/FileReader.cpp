@@ -5,7 +5,7 @@
 
 namespace fs = std::filesystem;
 
-std::vector<std::string> FileReader::getFiles() {
+std::vector<std::string> FileReader::getFiles() const {
   std::vector<std::string> filePaths;
 
   for (const auto& entry : fs::directory_iterator(mFolderPath)) {

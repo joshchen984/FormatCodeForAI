@@ -12,10 +12,7 @@
 int main(int argc, char *argv[]) {
 
   ArgParser arg(argc, argv);
-  bool help = false;
-  arg.getArgument<bool>("help", help);
 
-  std::cout << help << std::endl;
 
   std::vector<std::string> testExts{".cpp", ".h"};
   std::vector<std::string> testIgnores;
