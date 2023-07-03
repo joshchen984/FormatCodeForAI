@@ -1,28 +1,23 @@
 #include <iostream>
-#include <set>
-#include <vector>
-#include <string>
+#include <exception>
 
 #include <cxxopts.hpp>
 
-#include "FileReader.h"
-#include "FileWriter.h"
-#include "ArgParser.h"
+#include "Application.h"
 
 int main(int argc, char *argv[]) {
 
-  ArgParser arg(argc, argv);
-
-
-  std::vector<std::string> testExts{".cpp", ".h"};
-  std::vector<std::string> testIgnores;
-
-  FileReader displayer("C:/Users/joshc/projects/cpp/Game/Game", testExts,
-                          testIgnores);
-  FileWriter writer(std::cout);
-  auto files = displayer.getFiles();
-
-  for (std::string& file : files) {
-    writer.writeFile(file);
+  Application app(argc, argv);
+  if (app.isHelp()) {
+    std::cout << app.getHelpMessage() << std::endl;
+    return 0;
   }
+  try {
+    app.run();
+  } catch (std::exception e) {
+    std::cout << e.what() << std::endl;
+    return 1;
+  }
+
+  return 0;
 }

@@ -4,7 +4,10 @@
 #include <iostream>
 #include <fstream>
 
+#include <cxxopts.hpp>
+
 ArgParser::ArgParser(int argc, char* argv[]) {
+  mError = false;
   cxxopts::Options options("FormatCodeForAI", "This program...");
 
   // clang-format off
@@ -17,32 +20,39 @@ ArgParser::ArgParser(int argc, char* argv[]) {
   // clang-format on
   cxxopts::ParseResult result = options.parse(argc, argv);
 
-  mInputDir = result["input"].as<std::string>();
-
-  if (result.count("extensions")) {
-    mExtensions = result["extensions"].as<std::vector<std::string>>();
-  }
-  if (result.count("ignore")) {
-    mIgnores = result["ignore"].as<std::vector<std::string>>();
-  }
-
-  if (result.count("output")) {
-    mOutputPath = result["output"].as<std::string>();
-    mOutputToConsole = false;
-  } else {
-    mOutputToConsole = true;
-  }
-
   if (result.count("help")) {
     mHelp = result["help"].as<bool>();
+    mHelpMessage = options.help();
   } else {
     mHelp = false;
+
+    try {
+      mInputDir = result["input"].as<std::string>();
+    } catch (cxxopts::exceptions::exception e) {
+      mError = true;
+      mErrorMessage = e.what();
+    }
+
+
+    if (result.count("extensions")) {
+      mExtensions = result["extensions"].as<std::vector<std::string>>();
+    }
+
+    if (result.count("ignore")) {
+      mIgnores = result["ignore"].as<std::vector<std::string>>();
+    }
+
+    if (result.count("output")) {
+      mOutputPath = result["output"].as<std::string>();
+      mOutputToConsole = false;
+    } else {
+      mOutputToConsole = true;
+    }
   }
-  mHelpMessage = options.help();
 }
 
 std::ostream& ArgParser::getOutputStream() const {
   if (mOutputToConsole) return std::cout;
-  std::ofstream outputStream(mOutputPath);
+  static std::ofstream outputStream(mOutputPath);
   return outputStream;
 }

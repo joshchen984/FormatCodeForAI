@@ -11,7 +11,9 @@ class FileReader {
   FileReader(const std::string& folderPath,
                 const std::vector<std::string>& fileExtensions,
                 const std::vector<std::string>& ignoredFiles)
-      : mFolderPath(folderPath), mFileExtensions(fileExtensions.begin(), fileExtensions.end()), mIgnoredFiles(ignoredFiles.begin(), ignoredFiles.end()) {}
+      : mFolderPath(folderPath),
+        mFileExtensions(fileExtensions.begin(), fileExtensions.end()),
+        mIgnoredFiles(ignoredFiles.begin(), ignoredFiles.end()) {}
 
   std::vector<std::string> getFiles() const;
  private:

@@ -1,11 +1,15 @@
 #include "Application.h"
 
-#include <memory>
+#include <string>
+#include <vector>
+#include <stdexcept>
 
-#include "ArgParser.h"
-#include "FileWriter.h"
+void Application::run() const {
 
-Application::Application(int argc, char* argv[])
-    : mArgs(argc, argv), mReader(mArgs.getInputDir(), mArgs.getExtensions(), mArgs.getIgnores()), mWriter(mArgs.getOutputStream()) {
+  if (mArgs.isError()) throw std::invalid_argument(mArgs.getErrorMessage());
+  std::vector<std::string> filePaths = mReader.getFiles();
 
+  for (std::string& file : filePaths) {
+    mWriter.writeFile(file);
+  }
 }

@@ -20,7 +20,8 @@ class ArgParser {
   std::string getHelpMessage() const { return mHelpMessage; }
 
   std::ostream& getOutputStream() const;
-
+  bool isError() const { return mError; }
+  std::string getErrorMessage() const { return mErrorMessage; }
  private:
   std::string mInputDir;
   std::vector<std::string> mExtensions;
@@ -29,4 +30,7 @@ class ArgParser {
   bool mOutputToConsole;
   bool mHelp;
   std::string mHelpMessage;
+
+  bool mError;
+  std::string mErrorMessage;
 };
