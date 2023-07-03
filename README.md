@@ -15,4 +15,16 @@ FormatCodeForAI reads your code and provides a message containing the contents o
 
 ## Installation
 
-Need c++17
+### Requirements
+* C++17
+* [CMake](https://cmake.org/)
+
+```
+git clone --recurse-submodules https://github.com/joshchen984/FormatCodeForAI.git
+cd FormatCodeForAI
+mkdir out/build/
+cmake -S . -B out/build/
+cmake --build out/build/
+cd out/build/FormatCodeForAI/Debug/
+./FormatCodeForAI.exe -h
+```
